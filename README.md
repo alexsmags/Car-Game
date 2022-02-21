@@ -1,6 +1,10 @@
 # Car-Game
 Simple Car game where you avoid to hit other cars!
 
+# How to Play
+ The game will generate a car for the user to control with the arrow keys and their will be CPU generated cars that the user will have to avoid colliding with.
+ The longer the user lasts, the higher their score will be.
+
 # Technologies
 
 This extension was built using JavaScript, CSS && HTML
