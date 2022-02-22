@@ -1,6 +1,11 @@
 const score = document.querySelector(".score")
 const startScreen = document.querySelector(".startScreen")
 const gameArea = document.querySelector(".gameArea")
+const crash = new Audio("crash1.mp3")
+const music = new Audio("music.mp3")
+music.volume = 0.4
+
+
 let player = {speed: 5, score: 0}
 let keys = {
     ArrowUp: false,
@@ -41,6 +46,8 @@ function moveEnemy(car) {
     let ele = document.querySelectorAll(".enemy")
     ele.forEach(function(item){
         if (isCollide(car, item)) {
+            crash.play();
+            music.pause()
             endGame()
         }
         if (item.y >= 1500){
@@ -99,14 +106,24 @@ function pressOff(e){
 }
 
 function endGame() {
-    player.start = false;
+    player.start = false
     score.innerHTML = "Game Over <br> Score was " + player.score
     startScreen.classList.remove("hide")
 
 }
 function start() {
+    if (typeof music.loop == 'boolean'){
+        music.loop = true
+    }
+    else {
+        music.addEventListener('ended', function(){
+            this.currentTime = 0
+            this.play()
+        }, false)
+    }
+    music.currentTime = 0
+    music.play()
     startScreen.classList.add("hide")
-    //gameArea.classList.remove("hide")
     gameArea.innerHTML = ""
     player.start = true;
     player.score = 0
@@ -128,7 +145,7 @@ function start() {
     player.x = car.offsetLeft
     player.y = car.offsetTop
 
-    for (let x = 0; x < 3; x++) {
+    for (let x = 0; x < 4; x++) {
         let enemy = document.createElement("div")
         enemy.classList.add("enemy")
         enemy.y = ((x+1)*600)*-1
